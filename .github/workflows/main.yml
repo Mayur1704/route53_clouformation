@@ -26,10 +26,9 @@ jobs:
     - name: Check route53 enteries
       id: test
       run: |
-       aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" 
-       if [ $? -eq 0 ]; then echo "domain present" ; else echo "cloudformation script call"
        echo ${{ env.HZONE }}
        echo ${{ env.RRS }}
+       aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" 
        aws route53 list-hosted-zones
       continue-on-error: true
     - name: Check on failures
