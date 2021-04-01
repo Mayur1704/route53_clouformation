@@ -25,7 +25,8 @@ jobs:
         aws-region: us-east-1
     - name: Check route53 enteries
       run: |
-       aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" && if [ $? -eq 0 ]; then echo "domain present" ; else echo "cloudformation script call"
+       aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" 
+       if [ $? -eq 0 ]; then echo "domain present" ; else echo "cloudformation script call"
        echo ${{ env.HZONE }}
        echo ${{ env.RRS }}
        aws route53 list-hosted-zones
