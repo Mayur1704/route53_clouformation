@@ -13,10 +13,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Set variables
       run: |
-      HZ=$(cat HZONE)
-      echo "HZONE=$HZ" >> $GITHUB_ENV
-      R=$(cat RRS)
-      echo "RRS=$R" >> $GITHUB_ENV
+        HZ=$(cat HZONE)
+        echo "HZONE=$HZ" >> $GITHUB_ENV
+        R=$(cat RRS)
+        echo "RRS=$R" >> $GITHUB_ENV
     - name: Configure AWS credentials from Test account
       uses: aws-actions/configure-aws-credentials@v1
       with:
