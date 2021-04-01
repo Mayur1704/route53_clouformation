@@ -8,13 +8,15 @@ jobs:
   Check_route53_entry:
     name: username and password check
     runs-on: ubuntu-latest
-    env:
-     global:
-      HZONE=$(cat HZONE)
-      RRS=$(cat RRS)
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Set variables
+      run: |
+      HZONE=$(cat HZONE)
+      echo "HZONE=$HZONE" >> $GITHUB_ENV
+      RRS=$(cat RRS)
+      echo "RRS=$RRS" >> $GITHUB_ENV
     - name: Configure AWS credentials from Test account
       uses: aws-actions/configure-aws-credentials@v1
       with:
