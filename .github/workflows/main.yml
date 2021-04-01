@@ -24,20 +24,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ID }}
         aws-region: us-east-1
     - name: Check route53 enteries
+      id: test
       run: |
        aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" 
        if [ $? -eq 0 ]; then echo "domain present" ; else echo "cloudformation script call"
        echo ${{ env.HZONE }}
        echo ${{ env.RRS }}
        aws route53 list-hosted-zones
-  
-  Run_cloudformation_main_tf:
-    name: CF/TF
-    runs-on: ubuntu-latest
-    needs: [Check_route53_entry]
-    if: (jobs.Check_route53_entry.status == 'failure')
-    - name: command flow
+      continue-on-error: true
+    - name: Check on failures
+      if: steps.test.outputs.status == 'failure'
       run: |
-       echo "run cloud formation command /tf file"
-       
-  
+        echo "run cloud formation command /tf file"
