@@ -24,12 +24,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ID }}
         aws-region: us-east-1
     - name: Check route53 enteries
-      run: | 
-        echo ${{ env.HZONE }}
-        echo ${{ env.RRS }}
-        aws route53 list-hosted-zones
       if: aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" == 1
       run: |
        echo "subdomain not present"
+       echo ${{ env.HZONE }}
+       echo ${{ env.RRS }}
+       aws route53 list-hosted-zones
        
   
