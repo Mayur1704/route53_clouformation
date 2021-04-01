@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
      global:
-      - HZONE=$(cat HZONE)
-      - RRS=$(cat RRS)
+      HZONE=$(cat HZONE)
+      RRS=$(cat RRS)
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -23,8 +23,8 @@ jobs:
         aws-region: us-east-1
     - name: Check route53 enteries
       run: | 
-        echo $HZONE
-        echo $RRS
+        echo ${{ env.HZONE }}
+        echo ${{ env.RRS }}
         aws route53 list-hosted-zones
         aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']"
   
