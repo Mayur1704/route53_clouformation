@@ -35,7 +35,7 @@ jobs:
     name: CF/TF
     runs-on: ubuntu-latest
     needs: [Check_route53_entry]
-    if: (jobs.Check_route53_entry.status == 'fail')
+    if: (jobs.Check_route53_entry.status == 'failure')
     - name: command flow
       run: |
        echo "run cloud formation command /tf file"
