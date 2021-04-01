@@ -2,7 +2,7 @@ name: Check and create subdomains
 on:
   push:
     branches:
-      - master
+      - main
        
 jobs:
   Check_route53_entry:
