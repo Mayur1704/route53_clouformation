@@ -28,5 +28,8 @@ jobs:
         echo ${{ env.HZONE }}
         echo ${{ env.RRS }}
         aws route53 list-hosted-zones
-        aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']"
+      if: aws route53 list-resource-record-sets  --hosted-zone-id $HZONE  --query "ResourceRecordSets[?Name == '$RRS']" == exit 254
+      run: |
+       echo "subdomain not present"
+       
   
